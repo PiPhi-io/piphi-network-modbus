@@ -2,9 +2,9 @@
   "$schema": "./schema/piphi-manifest.schema.json",
   "manifest_version": "1.0",
   "id": "piphi-network-modbus",
-  "name": "Piphi Network Modbus",
+  "name": "Modbus",
   "version": "0.1.0",
-  "description": "PiPhi profile-driven starter runtime for Modbus TCP, TLS, RTU, and ASCII devices.",
+  "description": "Monitor profile-described Modbus devices across TCP, TLS, RTU, and ASCII transports.",
   "metadata": {
     "generator": "piphi-network-create",
     "scaffold_version": "0.3.0",
@@ -133,5 +133,68 @@
         "default_widget": "tile"
       }
     }
-  ]
+  ],
+  "marketplace": {
+    "metadata_version": 2,
+    "display_name": "Modbus",
+    "summary": "Monitor profile-described Modbus devices across TCP, TLS, RTU, and ASCII transports.",
+    "category": "other",
+    "regions": [
+      "WW"
+    ],
+    "languages": [
+      "en"
+    ],
+    "publisher": {
+      "name": "PiPhi Network",
+      "website_url": "https://piphi.io",
+      "support_url": "https://github.com/PiPhi-io/piphi-network-modbus/issues",
+      "security_contact": "support@piphi.io"
+    },
+    "access": [
+      {
+        "id": "local_network",
+        "label": "Local network access",
+        "reason": "Discovers or communicates with supported services and devices on the homeowner's local network.",
+        "required": true
+      }
+    ],
+    "compatibility": [
+      {
+        "brand": "Multi-vendor",
+        "model": "Devices described by supported PiPhi Modbus profiles"
+      }
+    ],
+    "documentation_url": "https://github.com/PiPhi-io/piphi-network-modbus",
+    "support_url": "https://github.com/PiPhi-io/piphi-network-modbus/issues",
+    "changelog_url": "https://github.com/PiPhi-io/piphi-network-modbus/releases",
+    "quality_tier": "unrated",
+    "governance": {
+      "schema_version": 1,
+      "publication_status": "draft",
+      "rollout_percent": 0,
+      "lifecycle_status": "active",
+      "qualification": {
+        "status": "unverified"
+      }
+    },
+    "device_types": [
+      "industrial controller",
+      "energy meter",
+      "sensor",
+      "actuator"
+    ],
+    "protocols": [
+      "Modbus TCP",
+      "Modbus TLS",
+      "Modbus RTU",
+      "Modbus ASCII"
+    ],
+    "discovery_methods": [
+      "profile configuration",
+      "manual"
+    ],
+    "connectivity": "local",
+    "offline_support": "full"
+  }
 }
