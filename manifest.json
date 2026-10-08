@@ -4,7 +4,7 @@
   "id": "piphi-network-modbus",
   "name": "Modbus",
   "version": "0.1.0",
-  "description": "Monitor profile-described Modbus devices across TCP, TLS, RTU, and ASCII transports.",
+  "description": "Read one configured holding register from a local Modbus TCP device.",
   "metadata": {
     "generator": "piphi-network-create",
     "scaffold_version": "0.3.0",
@@ -74,8 +74,9 @@
     "editable_fields": [
       "host",
       "alias",
-      "bridge_address",
-      "protocol"
+      "register_address",
+      "unit_id",
+      "poll_interval_seconds"
     ],
     "runtime_fields": [
       "id",
@@ -97,6 +98,7 @@
       "kind": "sensor",
       "unit": "bool"
     },
+    "holding_register_value": {"kind": "sensor", "value_kind": "numeric"},
     "refresh": {
       "kind": "action"
     }
@@ -104,7 +106,7 @@
   "commands": {
     "refresh": {
       "description": "Refresh the device state.",
-      "timeout_ms": 5000
+      "timeout_ms": 12000
     }
   },
   "entities": [
@@ -115,6 +117,7 @@
       "entity_type": "modbus_device",
       "capabilities": [
         "connected",
+        "holding_register_value",
         "refresh"
       ],
       "available_commands": [
@@ -134,10 +137,15 @@
       }
     }
   ],
+  "ui": {
+    "experience_packages": [
+      {"registry_id": "io.piphi.modbus-register", "version_range": ">=0.1,<1", "auto_install": true}
+    ]
+  },
   "marketplace": {
     "metadata_version": 2,
     "display_name": "Modbus",
-    "summary": "Monitor profile-described Modbus devices across TCP, TLS, RTU, and ASCII transports.",
+    "summary": "Read one configured holding register from a local Modbus TCP device.",
     "category": "other",
     "regions": [
       "WW"
@@ -151,6 +159,7 @@
       "support_url": "https://github.com/PiPhi-io/piphi-network-modbus/issues",
       "security_contact": "support@piphi.io"
     },
+    "access_declared": true,
     "access": [
       {
         "id": "local_network",
@@ -162,7 +171,7 @@
     "compatibility": [
       {
         "brand": "Multi-vendor",
-        "model": "Devices described by supported PiPhi Modbus profiles"
+        "model": "Local Modbus TCP server with a configured holding register"
       }
     ],
     "documentation_url": "https://github.com/PiPhi-io/piphi-network-modbus",
@@ -179,22 +188,15 @@
       }
     },
     "device_types": [
-      "industrial controller",
-      "energy meter",
-      "sensor",
-      "actuator"
+      "Modbus TCP server"
     ],
     "protocols": [
-      "Modbus TCP",
-      "Modbus TLS",
-      "Modbus RTU",
-      "Modbus ASCII"
+      "Modbus TCP"
     ],
     "discovery_methods": [
-      "profile configuration",
       "manual"
     ],
     "connectivity": "local",
-    "offline_support": "full"
+    "offline_support": "none"
   }
 }

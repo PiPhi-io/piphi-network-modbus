@@ -1,35 +1,13 @@
 {
-  "entities": [
-    {
-      "id": "demo-device",
-      "name": "Demo Device",
-      "device_id": "demo-device",
-      "entity_type": "modbus_device",
-      "capabilities": [
-        "connected",
-        "refresh"
-      ],
-      "available_commands": [
-        {
-          "id": "refresh",
-          "label": "Refresh",
-          "kind": "action"
-        }
-      ],
-      "dashboard": {
-        "allowed_widgets": [
-          "tile",
-          "stat",
-          "button"
-        ],
-        "default_widget": "tile"
-      }
-    }
-  ],
+  "entities": [],
   "capabilities": {
     "connected": {
       "kind": "sensor",
       "unit": "bool"
+    },
+    "holding_register_value": {
+      "kind": "sensor",
+      "value_kind": "numeric"
     },
     "refresh": {
       "kind": "action"
@@ -38,7 +16,7 @@
   "commands": {
     "refresh": {
       "description": "Refresh the device state.",
-      "timeout_ms": 5000
+      "timeout_ms": 12000
     }
   }
 }

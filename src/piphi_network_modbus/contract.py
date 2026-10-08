@@ -23,6 +23,7 @@ CAPABILITIES: dict[str, dict[str, Any]] = {
         "kind": "sensor",
         "unit": "bool"
     },
+    "holding_register_value": {"kind": "sensor", "value_kind": "numeric"},
     "refresh": {
         "kind": "action"
     }
@@ -31,17 +32,15 @@ CAPABILITIES: dict[str, dict[str, Any]] = {
 COMMANDS: dict[str, dict[str, Any]] = {
     "refresh": {
         "description": "Refresh the device state.",
-        "timeout_ms": 5000
+        "timeout_ms": 12000
     }
 }
 
 CONFIG_SCHEMA: dict[str, Any] = {
     "schema": {
-        "title": "Piphi Network Modbus Setup",
+        "title": "Modbus TCP register",
         "type": "object",
-        "required": [
-            "host"
-        ],
+        "required": ["host", "register_address"],
         "properties": {
             "host": {
                 "type": "string",
@@ -51,14 +50,9 @@ CONFIG_SCHEMA: dict[str, Any] = {
                 "type": "string",
                 "title": "Alias"
             },
-            "bridge_address": {
-                "type": "string",
-                "title": "Bridge Address"
-            },
-            "protocol": {
-                "type": "string",
-                "title": "Protocol"
-            }
+            "register_address": {"type": "integer", "title": "Zero-based holding register address", "minimum": 0, "maximum": 65535},
+            "unit_id": {"type": "integer", "title": "Modbus unit ID", "minimum": 1, "maximum": 247},
+            "poll_interval_seconds": {"type": "integer", "title": "Poll interval (seconds)", "minimum": 60}
         }
     },
     "uiSchema": {
@@ -66,14 +60,11 @@ CONFIG_SCHEMA: dict[str, Any] = {
             "placeholder": "192.168.1.50"
         },
         "alias": {
-            "placeholder": "Office Device"
+            "placeholder": "Meter register"
         },
-        "bridge_address": {
-            "placeholder": "tcp://127.0.0.1:9000"
-        },
-        "protocol": {
-            "placeholder": "mqtt"
-        }
+        "register_address": {"placeholder": "0"},
+        "unit_id": {"placeholder": "1"},
+        "poll_interval_seconds": {"placeholder": "300"}
     }
 }
 
@@ -84,6 +75,7 @@ FALLBACK_ENTITY: dict[str, Any] = {
     "entity_type": "modbus_device",
     "capabilities": [
         "connected",
+        "holding_register_value",
         "refresh"
     ],
     "available_commands": [

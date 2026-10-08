@@ -125,6 +125,7 @@
       "entityType": "modbus_device",
       "capabilities": [
         "connected",
+        "holding_register_value",
         "refresh"
       ],
       "targeting": {
