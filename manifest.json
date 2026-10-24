@@ -198,5 +198,8 @@
     ],
     "connectivity": "local",
     "offline_support": "none"
+  },
+  "onboarding": {
+    "mode": "manual"
   }
 }
